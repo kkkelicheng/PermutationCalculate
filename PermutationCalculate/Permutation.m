@@ -9,19 +9,10 @@
 #import "Permutation.h"
 
 @interface Permutation ()
-@property (nonatomic,strong) NSArray<NSString *> * toHexMap;
-@property (nonatomic,strong) NSDictionary <NSString *,NSString *> * toDecMap;
+
 @end
 
 @implementation Permutation
-
-
-/*
- *  0-9 10个数字
- *  A-Z 26个英文数字
- */
-static const int LCPickMax = 36;
-
 
 #pragma mark - 调用接口
 
@@ -79,80 +70,26 @@ static const int LCPickMax = 36;
                    countIndex:(int)index
                         count:(int)count
 {
-    if (length > self.toHexMap.count) {
-        NSLog(@"对象长度过长");
-        return nil;
-    }
-    
     NSMutableArray * arr = [NSMutableArray array];
     int rightPadding = count - 1 - index;
     if (rightPadding == 0) {
         for (; location < length ; location ++) {
-            [arr addObject:[NSString stringWithFormat:@"%@",self.toHexMap[location]]];
+            [arr addObject:[NSString stringWithFormat:@"%@",@(location)]];
         }
     }
     else {
         for (; location < length - rightPadding; location ++) {
             NSArray * subs = [self localArrayIndex:location + 1 andLength:length countIndex:index + 1 count:count];
             for (NSString * string in subs) {
-                [arr addObject:[NSString stringWithFormat:@"%@%@",self.toHexMap[location],string]];
+                [arr addObject:[NSString stringWithFormat:@"%@,%@",@(location),string]];
             }
         }
     }
     return [arr copy];
-    
 }
-
 
 
 #pragma mark - 辅助转换&数学计算
-
-/*
- *  0-9 A-Z 数组
- */
-- (NSArray<NSString *> *)toHexMap
-{
-    if (!_toHexMap) {
-        NSMutableArray * arr = [NSMutableArray array];
-        for (int i = 0; i < LCPickMax; i ++) {
-            NSString * charString = nil;
-            if (i >= 10) {
-                char c = 'A' + i - 10;
-                charString = [NSString stringWithFormat:@"%c",c];
-            }
-            else {
-                charString = [NSString stringWithFormat:@"%@",@(i)];
-            }
-            [arr addObject:charString];
-        }
-        _toHexMap = arr.copy;
-    }
-    return _toHexMap;
-}
-
-
-/*
- *  对应关系 {@"0":@"0" ,...., @"A":@(10)....@"Z":@(35)};
- */
-- (NSDictionary<NSString * , NSString *> *)toDecMap
-{
-    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
-    if (!_toDecMap) {
-        for (int x = 0; x < LCPickMax; x ++) {
-            NSString * keyString = @"";
-            if (x < 10) {
-                keyString = [NSString stringWithFormat:@"%@",@(x)];
-            }
-            else{
-                char c = 'A' + x - 10;
-                keyString = [NSString stringWithFormat:@"%c",c];
-            }
-            [dict setObject:@(x) forKey:keyString];
-        }
-        _toDecMap = dict.copy;
-    }
-    return _toDecMap;
-}
 
 
 /**

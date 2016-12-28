@@ -10,13 +10,12 @@
 @interface Permutation : NSObject
 
 
-
 /**
  计算出所有的排列组合方式
  例如从11个中选取5个，totalNum就是11，pickNum就是5
  
  @param pickNum  目标个数
- @param totalNum  抽取对象个数 ，目前支持36个
+ @param totalNum  抽取对象个数 
 
  @return 所有的排列组合方式
  */
@@ -35,6 +34,7 @@
  @return 所有的排列组合的个数
  */
 - (NSInteger)pickNum:(int)pickNum totalNum:(int)totalNum;
+
 
 
 @end
