@@ -1,7 +1,7 @@
 # PermutationCalculate
 排列组合的计算，计算所有组合方式
 
-###计算出所有的组合方式
+### 计算出所有的组合方式
 
 例如：从5个中选出3个所有的组合
 ```
@@ -25,7 +25,7 @@
 
 ```
 
-###计算出不同排列组合的情况数
+### 计算出不同排列组合的情况数
 ```
     NSInteger count = [p pickNum:pickNum totalNum:totalNum];
 ```
